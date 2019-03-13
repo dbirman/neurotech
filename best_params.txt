@@ -1,0 +1,14 @@
+
+noise = 0.05;
+lapse = 0.1;
+
+
+% weight in the CONTRAST task:
+v1_c = 15;
+mt_c = -3;
+
+% weight in the COHERENCE task:
+v1_m = -1.5;
+mt_m = 20;
+
+lapse = 0.3;

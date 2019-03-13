@@ -202,8 +202,8 @@ title(sprintf('Proportion of choices to RIGHT when responding about %s',stask));
 % distribution. 
 
 % ***** PARAMETERS ****** %
-noise = 0.05;
-lapse = 0.1;
+noise = ??;
+lapse = ??;
 % *********************** %
 
 % compute the probability of choosing one contrast over another, for the
@@ -297,14 +297,14 @@ end
 % ***** PARAMETERS ****** %
 
 % weight in the CONTRAST task:
-v1_c = 15;
-mt_c = -3;
+v1_c = ??;
+mt_c = ??;
 
 % weight in the COHERENCE task:
-v1_m = -1.5;
-mt_m = 20;
+v1_m = ??;
+mt_m = ??;
 
-lapse = 0.3;
+lapse = ??;
 % *********************** %
 
 
