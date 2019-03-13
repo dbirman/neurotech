@@ -19,6 +19,13 @@
 
 %% Load data files
 
+if ~isfile('params.mat')
+    disp('Are you in the right folder? cd to the /neurotech folder please.');
+    return
+end
+
+addpath(genpath(pwd));
+
 % load the motion visibility framework
 % this data, and the accompanying functions are available on the OSF: https://osf.io/s7j9p/
 load('data.mat'); 
