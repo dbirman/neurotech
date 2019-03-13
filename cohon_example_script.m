@@ -116,6 +116,7 @@ cmaps = {cmap(8,:),cmap(3,:)};
 for task = 1:2
     % remove all trials that aren't related to contrast
     cdata = adata(adata(:,1)==task,:);
+    stask = tasks{task};
     disp(sprintf('Using ALL subjects we have %i trials for task: %s',size(cdata,1),stask));
 
     % Compute the difference in contrast between the two sides
@@ -127,7 +128,7 @@ for task = 1:2
     qs_coh = quantile(dcoh,0:.1:1);
 
     % For each quantile, compute the percent of rightward responses
-    for qi = 1:(length(qs)-1)
+    for qi = 1:(length(qs_con)-1)
         % Tracking stuff
         qmin = qs_con(qi);
         qmax = qs_con(qi+1);
@@ -145,22 +146,25 @@ for task = 1:2
         conBinResp = cdata(conidxs,8);
         cohBinResp = cdata(cohidxs,8);
 
-        if ~isempty(binResp)
+        if ~isempty(conBinResp)
             % contrast
             ps{task,2}(qi) = nanmean(conBinResp);
             % compute a 95% CI
             ci = bootci(1000,@nanmean,conBinResp);
             cis{task,2}(qi) = ci(2)-ps{task,2}(qi);
-
+        else
+            ps{task,2}(qi) = 0.5;
+            cis{task,2}(qi) = 0;
+        end
+        
+        if ~isempty(cohBinResp)
             % coherence
             ps{task,1}(qi) = nanmean(cohBinResp);
             % compute a 95% CI
             ci = bootci(1000,@nanmean,cohBinResp);
             cis{task,1}(qi) = ci(2)-ps{task,1}(qi);
         else
-            ps{task,2}(qi) = 0.5;
             ps{task,1}(qi) = 0.5;
-            cis{task,2}(qi) = 0;
             cis{task,1}(qi) = 0;
         end
     end
@@ -330,7 +334,7 @@ for bi = 1:length(cbases)
     clear v1resp mtresp
     v1resp = zeros(length(cinc),2);
     mtresp = v1resp;
-    for ri = 1:length(binc)
+    for ri = 1:length(inc)
         % compute contrast responses
         v1resp(ri,2) = v1(find(x>=cinc(ri),1),2);
         mtresp(ri,2) = mt(find(x>=cinc(ri),1),2);
